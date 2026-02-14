@@ -1,6 +1,6 @@
 <h1>Automação de Consolidação: Relatório Operacional Logístico</h1>
 <p align="center">
-  <img src="automacao_relatorios.png" alt="Automação de Consolidação: Relatório Operacional Logístico" width="300px">
+  <img src="imagens/automacao_relatorios.png" alt="Automação de Consolidação: Relatório Operacional Logístico" width="300px">
 </p>
 <p>Este projeto consiste em um pipeline de ETL (Extração, Transformação e Carga) desenvolvido em Python para consolidar múltiplos relatórios de operação logística. O script é ideal para cenários onde os dados estão distribuídos em diversas pastas por região, arquivos por estado e abas por filial.</p>
 
@@ -21,7 +21,7 @@
 <p>A automação resolve o problema de relatórios manuais que possuem cabeçalhos complexos e formatação inconsistente. O código varre diretórios, entra em cada aba de cada arquivo Excel, limpa os dados numéricos e gera um arquivo mestre consolidado para análise em BI ou Dashboards.
 </p>
 <p align="center">
-  <img src="automacao_relatorios.png" alt="Automação de Consolidação: Relatório Operacional Logístico" width="400px">
+  <img src="imagens/tabela_exemplo.png" alt="Tabela Excel" width="400px">
 </p>
 
 <h2 id="estrutura">2. Estrutura de Dados 📊</h2>
