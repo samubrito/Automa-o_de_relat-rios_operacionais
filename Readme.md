@@ -1,177 +1,72 @@
-📊 Automação de Consolidação – Operação Logística
+<h1>🚚 Automação de Consolidação: Relatório Operacional Logístico</h1>
+<p align="center">
+  <img src="automacao_relatorios.png" alt="Automação de Consolidação: Relatório Operacional Logístico">
+</p>
+Este projeto consiste em um pipeline de ETL (Extração, Transformação e Carga) desenvolvido em Python para consolidar múltiplos relatórios de operação logística. O script é ideal para cenários onde os dados estão distribuídos em diversas pastas por região, arquivos por estado e abas por filial.
 
-Pipeline em Python para consolidação automática de relatórios operacionais de logística, realizando:
+📋 Sumário
+Visão Geral
 
-Leitura de múltiplas pastas
+Estrutura de Dados
 
-Processamento de múltiplos arquivos Excel
+Arquitetura do Processamento
 
-Tratamento e padronização de dados
+Requisitos
 
-Conversão de tipos numéricos
+Como Executar
 
-Consolidação final em arquivo único
+Tratamento de Erros
 
-🎯 Objetivo do Projeto
+🔍 Visão Geral
+A automação resolve o problema de relatórios manuais que possuem cabeçalhos complexos e formatação inconsistente. O código varre diretórios, entra em cada aba de cada arquivo Excel, limpa os dados numéricos e gera um arquivo mestre consolidado para análise em BI ou Dashboards.
 
-Automatizar a consolidação de relatórios operacionais distribuídos por:
+📊 Estrutura de Dados
+O script espera uma hierarquia específica para atribuir os metadados corretamente:
 
-📂 Estado
+Estado: Extraído da última parte do nome do arquivo (ex: Relatorio_SP.xlsx → "SP").
 
-📂 Mês
+Mês: Extraído da célula B1 (índice 0,1) de cada aba (Formato esperado: Texto, ex: "Janeiro").
 
-📄 Arquivo Excel
+Filial: Extraído automaticamente do nome da aba (sheet name).
 
-📑 Múltiplas planilhas internas
+Colunas Métricas: Tempo_h, Km e Custo.
 
-Eliminando trabalho manual de consolidação e reduzindo risco de erro humano.
+⚙️ Arquitetura do Processamento
+O fluxo de tratamento segue estas etapas técnicas:
 
-🏗️ Estrutura Esperada de Pastas
-Automação Relatório Operacional/
-└── operacao_logistica/
-    ├── janeiro/
-    │   ├── Operacao_Logistica_SP.xlsx
-    │   └── Operacao_Logistica_MG.xlsx
-    ├── fevereiro/
-    │   ├── Operacao_Logistica_SP.xlsx
-    │   └── Operacao_Logistica_RJ.xlsx
+Mapeamento de Pastas: Utiliza os.listdir e glob para localizar arquivos .xlsx em subpastas regionais.
 
+Limpeza de Cabeçalho (Skip Rows): O script pula as primeiras 6 linhas e realiza uma transposição (.T), transformando o que eram rótulos de linha em colunas.
 
-O script percorre automaticamente:
+Sanitização Numérica: * Remove símbolos monetários e caracteres especiais via Regex.
 
-Todas as pastas
+Converte o padrão brasileiro (vírgula) para o padrão computacional (ponto).
 
-Todos os arquivos .xlsx
+Trata valores ausentes (NaN) como 0 para evitar erros de cálculo.
 
-Todas as planilhas dentro dos arquivos
+Agregação: Consolida os dados utilizando .groupby("Equipe").sum(), garantindo que cada equipe tenha apenas uma linha de resumo por filial.
 
-🔄 Fluxo do Pipeline
+🛠 Requisitos
+Python 3.8+
 
-🔎 Percorre as pastas de meses
+Pandas: Para manipulação de DataFrames.
 
-📄 Lê todos os arquivos Excel
+Openpyxl: Engine necessária para leitura de arquivos Excel modernos.
 
-📑 Processa cada planilha individualmente
+Numpy: Para tratamento de valores nulos e operações vetoriais.
 
-🧹 Realiza:
-
-Remoção de linhas irrelevantes
-
-Transposição de dados
-
-Padronização de colunas
-
-Conversão de valores numéricos
-
-📊 Agrupa dados por equipe
-
-➕ Adiciona colunas:
-
-Estado
-
-Mês
-
-Filial
-
-🧩 Consolida tudo em um único DataFrame
-
-💾 Exporta arquivo_final.xlsx
-
-🧠 Principais Técnicas Utilizadas
-
-pandas para manipulação de dados
-
-glob para busca dinâmica de arquivos
-
-os.path para portabilidade de caminhos
-
-Tratamento de exceções com try/except
-
-Modularização com funções
-
-Estrutura profissional com main()
-
+Bash
+pip install pandas openpyxl numpy
 🚀 Como Executar
-1️⃣ Instalar dependências
-pip install pandas numpy openpyxl
+Certifique-se de que a pasta Automação Relatório Operacional/operacao_logistica está no mesmo diretório que o script.
 
-2️⃣ Executar o script
-python script.py
+Coloque seus arquivos .xlsx dentro das subpastas de regionais.
 
+Execute o comando:
 
-O arquivo final será gerado como:
+Bash
+python nome_do_seu_arquivo.py
+O arquivo arquivo_final.xlsx será gerado na raiz do projeto.
 
-arquivo_final.xlsx
-
-🧩 Funções do Projeto
-Função	Responsabilidade
-converteNumero()	Limpeza e conversão de colunas numéricas
-trataPlanilha()	Tratamento individual de cada planilha
-trataArquivos()	Consolidação das planilhas de um arquivo
-trataPastas()	Consolidação geral de todos os arquivos
-main()	Execução principal do pipeline
-🛡️ Tratamento de Erros
-
-O pipeline possui tratamento de exceções em dois níveis:
-
-🔹 Erro por planilha
-
-🔹 Erro por arquivo
-
-Isso garante que um único erro não interrompa toda a consolidação.
-
-📈 Possíveis Melhorias Futuras
-
-Implementação de logging estruturado
-
-Parametrização via CLI (argparse)
-
-Criação de testes unitários
-
-Dockerização do projeto
-
-Integração com banco de dados (PostgreSQL)
-
-Orquestração via Airflow
-
-💼 Aplicabilidade Profissional
-
-Este projeto simula um cenário real de:
-
-Automação de relatórios
-
-Consolidação de dados operacionais
-
-Preparação de base para BI
-
-Pipeline inicial de engenharia de dados
-
-Pode ser facilmente integrado a:
-
-Power BI
-
-Banco de dados
-
-Pipeline ETL
-
-Sistema de monitoramento
-
-👨‍💻 Autor
-
-Samuel Brito
-Engenharia de Controle e Automação
-Foco em Dados, Automação e Engenharia de Dados
-
-⭐ Considerações
-
-Este projeto demonstra:
-
-Organização
-
-Estrutura modular
-
-Tratamento de dados reais
-
-Resiliência a falhas
-
-Mentalidade de produção
+⚠️ Tratamento de Erros
+O script possui blocos try-except robustos para garantir que, caso uma aba específica ou um arquivo esteja corrompido ou fora do padrão, o processamento não seja interrompido. O erro será logado no console informando o local exato do problema para correção manual posterior.

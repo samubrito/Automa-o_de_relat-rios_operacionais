@@ -3,9 +3,6 @@ import os
 from glob import glob
 import numpy as np
 
-pasta_atual = os.getcwd()
-caminho = os.path.join(pasta_atual, "Automação Relatório Operacional/operacao_logistica")
-
 def converteNumero(df:pd.DataFrame,colunas=[]) -> pd.DataFrame:
     for coluna in colunas:
         df[coluna] = (df[coluna].replace("NaN", 0).astype(str).str.replace(",", ".", regex=False)
@@ -62,6 +59,8 @@ def trataPastas(caminho) -> pd.DataFrame:
     return dfs
 
 def main():
+    pasta_atual = os.getcwd()
+    caminho = os.path.join(pasta_atual, "Automação Relatório Operacional/operacao_logistica")
     arquivo_final = trataPastas(caminho)
     arquivo_final.to_excel("arquivo_final.xlsx", index=False)
     print(arquivo_final)
