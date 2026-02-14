@@ -1,11 +1,13 @@
 <h1>🚚 Automação de Consolidação: Relatório Operacional Logístico</h1>
 <p align="center">
-  <img src="automacao_relatorios.png" alt="Automação de Consolidação: Relatório Operacional Logístico">
+  <img src="automacao_relatorios.png" alt="Automação de Consolidação: Relatório Operacional Logístico" width="400px">
 </p>
 Este projeto consiste em um pipeline de ETL (Extração, Transformação e Carga) desenvolvido em Python para consolidar múltiplos relatórios de operação logística. O script é ideal para cenários onde os dados estão distribuídos em diversas pastas por região, arquivos por estado e abas por filial.
 
-<h2>📋 Sumário</h2>
-Visão Geral
+<details open="open">
+<summary>📋 Sumário</summary>
+
+- [Visão Geral](#visao_geral)
 
 Estrutura de Dados
 
@@ -15,9 +17,11 @@ Requisitos
 
 Como Executar
 
-Tratamento de Erros
+- [Tratamento de Erros](#tratamento)
 
-<h2>🔍 Visão Geral</h2>
+</details>
+
+<h2 id="visao_geral">🔍 Visão Geral</h2>
 <p>A automação resolve o problema de relatórios manuais que possuem cabeçalhos complexos e formatação inconsistente. O código varre diretórios, entra em cada aba de cada arquivo Excel, limpa os dados numéricos e gera um arquivo mestre consolidado para análise em BI ou Dashboards.</p>
 
 <h2>📊 Estrutura de Dados</h2>
@@ -68,5 +72,5 @@ Bash
 python nome_do_seu_arquivo.py
 O arquivo arquivo_final.xlsx será gerado na raiz do projeto.
 
-<h2>⚠️ Tratamento de Erros</h2>
+<h2 id="tratamento">⚠️ Tratamento de Erros</h2>
 O script possui blocos try-except robustos para garantir que, caso uma aba específica ou um arquivo esteja corrompido ou fora do padrão, o processamento não seja interrompido. O erro será logado no console informando o local exato do problema para correção manual posterior.
