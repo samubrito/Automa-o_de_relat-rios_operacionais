@@ -64,8 +64,6 @@ def trataPastas(caminho) -> pd.DataFrame:
     return dfs
 ```
 
-<h3>Limpeza de Cabeçalho (Skip Rows):</h3> O script pula as primeiras 6 linhas e realiza uma transposição (.T), transformando o que eram rótulos de linha em colunas.
-
 <h3>Padronização Numérica:</h3> * Remove símbolos monetários e caracteres especiais via Regex; Converter o padrão brasileiro (vírgula) para o padrão computacional (ponto); Trata valores ausentes (NaN) como 0 para evitar erros de cálculo.
 
 ```python
@@ -77,6 +75,8 @@ def converteNumero(df:pd.DataFrame,colunas=[]) -> pd.DataFrame:
     
     return df
 ```
+
+<h3>Limpeza de Cabeçalho (Skip Rows):</h3> O script pula as primeiras 6 linhas e realiza uma transposição (.T), transformando o que eram rótulos de linha em colunas.
 
 <h3>Agregação:</h3> Consolida os dados utilizando .groupby("Equipe").sum(), garantindo que cada equipe tenha apenas uma linha de resumo por filial.
 
@@ -123,3 +123,24 @@ O arquivo arquivo_final.xlsx será gerado na raiz do projeto.
 
 <h2 id="tratamento">6. Tratamento de Erros ⚠️</h2>
 O script possui blocos try-except robustos para garantir que, caso uma aba específica ou um arquivo esteja corrompido ou fora do padrão, o processamento não seja interrompido. O erro será logado no console informando o local exato do problema para correção manual posterior.
+
+```python
+for planilha in pd.ExcelFile(arquivo).sheet_names:
+        try:
+            planilhaTratada = trataPlanilha(arquivo,planilha)
+            planilhas.append(planilhaTratada)
+        except Exception as e:
+            print(f"Erro {type(e).__name__} na planilha {planilha} do arquivo {arquivo}:\n{e}\n")
+```
+
+```python
+for arquivo in arquivos:
+            try:
+                estado = os.path.basename(arquivo)
+                estado = os.path.splitext(estado)[0].split("_")[-1]
+                df = trataArquivos(arquivo)
+                df.insert(0,"Estado",estado)
+                dfs_arquivos.append(df)
+            except Exception as e:
+                print(f"Erro {type(e).__name__} no arquivo {arquivo}:\n{e}\n")
+```
