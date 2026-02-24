@@ -22,6 +22,7 @@ def trataPlanilha(nome_arquivo,nome_planilha):
 
     df.insert(0,"Filial",nome_planilha)
     df.insert(0,"Mês",mes)
+    df["Mês"] = pd.to_datetime(df["Mês"], errors="coerce")
     return df
 
 def trataArquivos(arquivo):
@@ -60,7 +61,7 @@ def trataPastas(caminho) -> pd.DataFrame:
 
 def main():
     pasta_atual = os.getcwd()
-    caminho = os.path.join(pasta_atual, "Automação Relatório Operacional/operacao_logistica")
+    caminho = os.path.join(pasta_atual, "operacao_logistica")
     arquivo_final = trataPastas(caminho)
     arquivo_final.to_excel("arquivo_final.xlsx", index=False)
     print(arquivo_final)

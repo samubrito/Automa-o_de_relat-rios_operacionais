@@ -29,7 +29,7 @@ O script espera uma hierarquia específica para atribuir os metadados corretamen
 
 <ul>
     <li>Estado: Extraído da última parte do nome do arquivo (ex: Relatorio_SP.xlsx → "SP").</li>
-    <li>Mês: Extraído da célula B1 (índice 0,1) de cada aba (Formato esperado: Texto, ex: "Janeiro").</li>
+    <li>Mês: Extraído da célula B2 (índice 0,1) de cada aba (Formato esperado: Texto, ex: "Janeiro").</li>
     <li>Filial: Extraído automaticamente do nome da aba (sheet name).</li>
     <li>Colunas Métricas: Tempo_h, Km e Custo.</li>
 </ul>
